@@ -1,6 +1,5 @@
 package com.weatherapp
 
-import android.R.attr.enabled
 import android.app.Activity
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
@@ -15,8 +14,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -54,61 +53,79 @@ class LoginActivity : ComponentActivity() {
 fun LoginPage(modifier: Modifier = Modifier) {
     var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
+
     val context = LocalContext.current
     val activity = context as Activity
+
     Column(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(24.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = CenterHorizontally
     ) {
-        val modifier = modifier.fillMaxWidth(fraction = 0.9f)
+
+        val fieldModifier = Modifier.fillMaxWidth(0.9f)
+
         Text(
             text = "Bem-vindo!",
             fontSize = 24.sp
         )
-        Spacer(modifier = modifier.size(12.dp))
+
+        Spacer(modifier = Modifier.height(16.dp))
+
         OutlinedTextField(
             value = email,
-            label = { Text(text = "Digite seu e-mail") },
-            modifier = modifier,
+            label = { Text("Digite seu e-mail") },
+            modifier = fieldModifier,
             onValueChange = { email = it }
         )
-        Spacer(modifier = modifier.size(12.dp))
+
+        Spacer(modifier = Modifier.height(12.dp))
+
         OutlinedTextField(
             value = password,
-            label = { Text(text = "Digite sua senha") },
-            modifier = modifier,
+            label = { Text("Digite sua senha") },
+            modifier = fieldModifier,
             onValueChange = { password = it },
             visualTransformation = PasswordVisualTransformation()
         )
-        Spacer(modifier = modifier.size(12.dp))
+
+        Spacer(modifier = Modifier.height(20.dp))
+
         Row(
-            modifier = modifier.padding(12.dp).fillMaxSize(),
+            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            Button( onClick = {
-                Toast.makeText(activity, "Login OK!", Toast.LENGTH_LONG).show()
-                activity.startActivity(
-                    Intent(activity, MainActivity::class.java).setFlags(
-                        FLAG_ACTIVITY_SINGLE_TOP
+            Button(
+                onClick = {
+                    Toast.makeText(activity, "Login OK!", Toast.LENGTH_LONG).show()
+                    activity.startActivity(
+                        Intent(activity, MainActivity::class.java)
+                            .setFlags(FLAG_ACTIVITY_SINGLE_TOP)
                     )
-                )
-            },
+                },
                 enabled = email.isNotEmpty() && password.isNotEmpty()
             ) {
                 Text("Login")
             }
-            Button( onClick = {
-                activity.startActivity(
-                    Intent(activity, RegisterActivity::class.java).setFlags(
-                        FLAG_ACTIVITY_SINGLE_TOP
+
+            Button(
+                onClick = {
+                    activity.startActivity(
+                        Intent(activity, RegisterActivity::class.java)
+                            .setFlags(FLAG_ACTIVITY_SINGLE_TOP)
                     )
-                )
-            },
+                }
             ) {
                 Text("Registrar")
             }
+
             Button(
-                onClick = { email = ""; password = "" }
+                onClick = {
+                    email = ""
+                    password = ""
+                }
             ) {
                 Text("Limpar")
             }

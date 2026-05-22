@@ -33,7 +33,10 @@ import com.weatherapp.ui.nav.MainNavHost
 import com.weatherapp.ui.nav.Route
 import com.weatherapp.ui.theme.WeatherAppTheme
 import com.weatherapp.viewmodel.MainViewModel
+
 import androidx.navigation.NavDestination.Companion.hasRoute
+import com.weatherapp.ui.CityDialog
+
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,6 +54,12 @@ class MainActivity : ComponentActivity() {
 
 
             WeatherAppTheme {
+                if (showDialog) CityDialog(
+                    onDismiss = { showDialog = false },
+                    onConfirm = { city ->
+                        if (city.isNotBlank()) viewModel.add(city)
+                        showDialog = false
+                    })
                 Scaffold(
                     topBar = {
                         TopAppBar(

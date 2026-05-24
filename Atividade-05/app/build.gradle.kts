@@ -5,6 +5,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.serialization")
     id ("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     id("com.google.gms.google-services")
+
 }
 
 android {
@@ -12,7 +13,7 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.weatherapp"
+        applicationId = "com.WeatherApp"
         minSdk = 24
         targetSdk = 36
         versionCode = 1

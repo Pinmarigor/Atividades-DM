@@ -35,6 +35,8 @@ import com.weatherapp.ui.theme.WeatherAppTheme
 import com.weatherapp.viewmodel.MainViewModel
 
 import androidx.navigation.NavDestination.Companion.hasRoute
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 import com.weatherapp.ui.CityDialog
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -65,7 +67,10 @@ class MainActivity : ComponentActivity() {
                         TopAppBar(
                             title = { Text("Bem-vindo/a!") },
                             actions = {
-                                IconButton( onClick = { finish() } ) {
+                                IconButton( onClick = {
+                                    Firebase.auth.signOut()
+                                    finish()
+                                } ) {
                                     Icon(
                                         imageVector =
                                             Icons.AutoMirrored.Filled.ExitToApp,

@@ -17,9 +17,14 @@ import com.weatherapp.model.City
 import com.weatherapp.model.Forecast
 import com.weatherapp.model.User
 import com.weatherapp.model.Weather
+import com.weatherapp.ui.nav.Route
 
 class MainViewModel (private val db: FBDatabase, private val service : WeatherService): ViewModel(),
     FBDatabase.Listener {
+    private var _page = mutableStateOf<Route>(Route.Home)
+    var page: Route
+        get() = _page.value
+        set(tmp) { _page.value = tmp }
     fun addCity(name: String) {
         service.getLocation(name) { lat, lng ->
             if (lat != null && lng != null) {

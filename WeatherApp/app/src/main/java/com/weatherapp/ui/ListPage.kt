@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.weatherapp.model.City
 import com.weatherapp.model.Weather
+import com.weatherapp.ui.nav.Route
 import com.weatherapp.viewmodel.MainViewModel
 
 @Preview(showBackground = true)
@@ -51,6 +52,7 @@ fun ListPage(
 
                 onClick = {
                     viewModel.city = city.name
+                    viewModel.page = Route.Home
             })
         }
     }

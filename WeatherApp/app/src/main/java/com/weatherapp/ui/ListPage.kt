@@ -50,7 +50,7 @@ fun ListPage(
                 viewModel.remove(city) },
 
                 onClick = {
-                Toast.makeText(activity, "Cidade aberta!", Toast.LENGTH_LONG).show()
+                    viewModel.city = city.name
             })
         }
     }
